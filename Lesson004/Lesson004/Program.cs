@@ -6,18 +6,18 @@ namespace Lesson004
     {
         static void Main(string[] args)
         {
-            int CountPars = 1;
+            int CountPars = 2;
             string[] Denuntiatio = new string[]
             {
                 "Вывести несколько полных имён",
-                "Телефонный справочник",
+                "Сумма всех чисел в строке",
                 "Обращение строки",
                 "Морской бой",
                 "Смещение элементов массива"
             };
             //Console.WriteLine(System.Text.Encoding.Default.HeaderName);
             //Цикл-обработчик каждого задания
-            for (int i = 0; i < CountPars; ++i)
+            for (int i = 1; i < CountPars; ++i)
             {
                 //Вывод части и названия задания
                 Console.WriteLine($"Часть {i + 1}: {Denuntiatio[i]}");
@@ -28,7 +28,7 @@ namespace Lesson004
                         ShowFIO($"Часть {i + 1}: {Denuntiatio[i]}");
                         break;
                     case 1:
-                        
+                        Summer();
                         break;
                     case 2:
                         
@@ -90,6 +90,45 @@ namespace Lesson004
             char Spacer = ' ';
             string Fuller = FirstName + Spacer + LastName + Spacer + Patronymic;
             return Fuller;
+        }
+
+        static void Summer()
+        {
+            Console.WriteLine("Введите числа через пробел для подсчёта их суммы");
+            string SomeString = Console.ReadLine();
+
+            Console.WriteLine(GetSumme(SomeString));
+        }
+        static int GetSumme(string SomeString)
+        {
+            int Total = 0;
+            string Alpha = "0123456789";
+            string ReponoFabrica = "";
+
+            //Ищем числовые символы и собираем их в строку с некоторым числом
+            //Затем преобразуем эту строку в целое число
+            //Добавляем к итоговому результату
+            foreach (char Item in SomeString)
+            {
+                if (Func.Compareiro( Item, Alpha ))
+                {
+                    ReponoFabrica += Item;
+                }
+                else
+                {
+                    Total += Func.GetNumberFromString(ReponoFabrica);
+                    ReponoFabrica = "";
+                    continue;                    
+                }
+            }
+            //Если строка закончилась, а в накопителе были набраны числовые символы,
+            //То преобразуем эту строку в чило с добавлением в итоговый результат
+            if(ReponoFabrica != "" )
+            {
+                Total += Func.GetNumberFromString(ReponoFabrica);
+            }
+
+            return Total;
         }
     }
 }
