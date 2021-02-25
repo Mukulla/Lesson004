@@ -6,18 +6,17 @@ namespace Lesson004
     {
         static void Main(string[] args)
         {
-            int CountPars = 2;
+            int CountPars = 4;
             string[] Denuntiatio = new string[]
             {
                 "Вывести несколько полных имён",
                 "Сумма всех чисел в строке",
                 "Обращение строки",
-                "Морской бой",
-                "Смещение элементов массива"
+                "Вычисление числа Фибоначчи"
             };
             //Console.WriteLine(System.Text.Encoding.Default.HeaderName);
             //Цикл-обработчик каждого задания
-            for (int i = 1; i < CountPars; ++i)
+            for (int i = 3; i < CountPars; ++i)
             {
                 //Вывод части и названия задания
                 Console.WriteLine($"Часть {i + 1}: {Denuntiatio[i]}");
@@ -33,13 +32,10 @@ namespace Lesson004
                     case 2:
                         
                         break;
-                    case 3:
-                        
-                        break;
                 }
-                if (i == 4)
+                if (i == 3)
                 {
-                    
+                   CaloFobo(); 
 
                     Console.WriteLine();
                     Console.WriteLine("Все части пройдены");
@@ -129,6 +125,42 @@ namespace Lesson004
             }
 
             return Total;
+        }
+
+        static void CaloFobo()
+        {
+            Console.WriteLine("Введите номер элемента для вичисления числа Фибоначчи");
+
+            int Number = Func.GetNumberFromString(Console.ReadLine());
+
+            Console.WriteLine(ClculateF(Number));
+
+        }
+        static int ClculateF( int Number001 )
+        {
+            if(Number001 < 0)
+            {
+                Number001 = 0;
+            }
+            int First = 0, Second = 1, Iterator = 0;
+            switch(Number001)
+            {
+                case 0:
+                    return First;
+                case 1:
+                    return Second;
+            }
+            Iterator = 2;
+            return NextCalc(First, First + Second, ref Iterator, ref Number001); ;            
+        }
+        static int NextCalc( int Last, int Current, ref int Iterator001, ref int Number001)
+        {
+            if(Iterator001 == Number001)
+            {
+                return Last + Current;
+            }
+            ++Iterator001;
+            return NextCalc(Current, Last + Current, ref Iterator001, ref Number001);
         }
     }
 }
