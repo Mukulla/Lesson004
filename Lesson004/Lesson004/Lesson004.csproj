@@ -5,4 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="MyLibCSharp001">
+      <HintPath>I:\Prog\MyLibCSharp001\MyLibCSharp001\bin\Debug\netstandard2.0\MyLibCSharp001.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

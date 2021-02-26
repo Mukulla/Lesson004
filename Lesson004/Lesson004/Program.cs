@@ -1,7 +1,17 @@
 ﻿using System;
+//Самописная библиотека
+using MyLib;
 
 namespace Lesson004
 {
+    enum MySeaso
+    {
+        Winter, 
+        Spring, 
+        Summer, 
+        Autumn
+    };
+
     class Program
     {
         static void Main(string[] args)
@@ -11,12 +21,12 @@ namespace Lesson004
             {
                 "Вывести несколько полных имён",
                 "Сумма всех чисел в строке",
-                "Обращение строки",
+                "Определение времени года",
                 "Вычисление числа Фибоначчи"
             };
             //Console.WriteLine(System.Text.Encoding.Default.HeaderName);
             //Цикл-обработчик каждого задания
-            for (int i = 3; i < CountPars; ++i)
+            for (int i = 0; i < CountPars; ++i)
             {
                 //Вывод части и названия задания
                 Console.WriteLine($"Часть {i + 1}: {Denuntiatio[i]}");
@@ -30,7 +40,7 @@ namespace Lesson004
                         Summer();
                         break;
                     case 2:
-                        
+                        CheckSeason();
                         break;
                 }
                 if (i == 3)
@@ -76,10 +86,7 @@ namespace Lesson004
                 Console.Clear();
             }
 
-            for (int i = 0; i < CountFullNames; ++i)
-            {
-                Console.WriteLine(Total[i]);
-            }
+            MyFunc.ShowArray(Total);
         }
         static string GetFullName(string FirstName, string LastName, string Patronymic)
         {
@@ -91,9 +98,8 @@ namespace Lesson004
         static void Summer()
         {
             Console.WriteLine("Введите числа через пробел для подсчёта их суммы");
-            string SomeString = Console.ReadLine();
 
-            Console.WriteLine(GetSumme(SomeString));
+            Console.WriteLine(GetSumme(Console.ReadLine()));
         }
         static int GetSumme(string SomeString)
         {
@@ -106,13 +112,13 @@ namespace Lesson004
             //Добавляем к итоговому результату
             foreach (char Item in SomeString)
             {
-                if (Func.Compareiro( Item, Alpha ))
+                if ( MyFunc.Compare( Item, Alpha ))
                 {
                     ReponoFabrica += Item;
                 }
                 else
                 {
-                    Total += Func.GetNumberFromString(ReponoFabrica);
+                    Total += MyFunc.GetNumberFromString(ReponoFabrica);
                     ReponoFabrica = "";
                     continue;                    
                 }
@@ -121,27 +127,70 @@ namespace Lesson004
             //То преобразуем эту строку в чило с добавлением в итоговый результат
             if(ReponoFabrica != "" )
             {
-                Total += Func.GetNumberFromString(ReponoFabrica);
+                Total += MyFunc.GetNumberFromString(ReponoFabrica);
             }
 
             return Total;
+        }
+
+        static void CheckSeason()
+        {
+            Console.WriteLine("Введите номер месяца");
+            Console.WriteLine( CheS002( CheS001( MyFunc.GetNumberFromConsole() ) ) );
+        }
+        static MySeaso CheS001( int NumberMonth )
+        {
+            //Смещаем месяцы на единицу вперёд так, что декабрь теперь первый месяц
+            //и таким образом все месяцы равномерно распределены по временам года
+            ++NumberMonth;             
+            MyFunc.CheckClausaAream(ref NumberMonth, 1, 12);
+
+            int NumberSeas = NumberMonth / 4;
+            switch (NumberSeas)
+            {
+                case 0:
+                    return MySeaso.Winter;
+                    //break;
+                case 1:
+                    return MySeaso.Spring;
+                    //break;
+                case 2:
+                    return MySeaso.Summer;
+                    //break;                  
+            }
+            return MySeaso.Autumn;
+        }
+        static string CheS002(MySeaso SomeSeason001)
+        {
+            switch (SomeSeason001)
+            {
+                case MySeaso.Winter:
+                    return "Зима";
+                    //break;
+                case MySeaso.Spring:
+                    return "Весна";
+                    //break;
+                case MySeaso.Summer:
+                    return "Лето";
+                    //break;
+            }
+            return "Осень";
         }
 
         static void CaloFobo()
         {
             Console.WriteLine("Введите номер элемента для вичисления числа Фибоначчи");
 
-            int Number = Func.GetNumberFromString(Console.ReadLine());
+            int Number = MyFunc.GetNumberFromConsole();
 
             Console.WriteLine(ClculateF(Number));
 
         }
         static int ClculateF( int Number001 )
         {
-            if(Number001 < 0)
-            {
-                Number001 = 0;
-            }
+            //Пределы для задания числа
+            MyFunc.CheckLimitataAream(ref Number001, 0, 46);
+
             int First = 0, Second = 1, Iterator = 0;
             switch(Number001)
             {
@@ -160,6 +209,7 @@ namespace Lesson004
                 return Last + Current;
             }
             ++Iterator001;
+            //Console.WriteLine(Last + Current);
             return NextCalc(Current, Last + Current, ref Iterator001, ref Number001);
         }
     }
